@@ -1,0 +1,114 @@
+.perfumes-section {
+    position: relative;
+    padding: var(--spacing-xl) 0;
+    overflow: hidden;
+  }
+  
+  .perfumes-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-brown) 0%, var(--color-dark-purple) 100%);
+    opacity: 0.8;
+    z-index: -1;
+  }
+  
+  .perfumes-showcase {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin: var(--spacing-xl) 0;
+    flex-wrap: wrap;
+  }
+  
+  .perfume-card {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform var(--transition-medium);
+  }
+  
+  .perfume-card:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+  
+  .perfume-image {
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .perfume-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+  }
+  
+  .perfume-card:hover .perfume-image img {
+    transform: scale(1.05);
+  }
+  
+  .perfume-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(45, 27, 78, 0.9) 100%);
+  }
+  
+  .perfume-info {
+    padding: var(--spacing-lg);
+    text-align: center;
+  }
+  
+  .perfume-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .perfume-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
+  }
+  
+  .perfume-price {
+    font-weight: 600;
+    color: var(--color-red);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.2rem;
+  }
+  
+  .perfumes-cta {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+  }
+  
+  @media (max-width: 1024px) {
+    .perfumes-showcase {
+      gap: var(--spacing-lg);
+    }
+    
+    .perfume-card {
+      width: 280px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .perfumes-showcase {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .perfume-card {
+      width: 100%;
+      max-width: 350px;
+    }
+  }

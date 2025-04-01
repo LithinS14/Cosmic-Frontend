@@ -1,0 +1,52 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--color-deep-purple) 0%, var(--color-dark-purple) 70%, var(--color-brown) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-loader);
+  }
+  
+  .loader-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader-canvas {
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .loader-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .loader-text h1 {
+    font-family: var(--font-secondary);
+    font-size: 4rem;
+    letter-spacing: 10px;
+    margin-bottom: 2rem;
+    color: var(--color-white);
+    text-shadow: 0 0 10px var(--color-red);
+  }
+  
+  .loading-bar {
+    height: 4px;
+    background-color: var(--color-red);
+    box-shadow: 0 0 10px var(--color-red);
+    width: 0;
+    max-width: 300px;
+    margin: 0 auto;
+  }

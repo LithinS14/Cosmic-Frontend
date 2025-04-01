@@ -1,0 +1,96 @@
+.terms-policy-page {
+    padding-top: 80px;
+  }
+  
+  .terms-policy-hero {
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-deep-purple) 0%, var(--color-dark-purple) 70%, var(--color-brown) 100%);
+  }
+  
+  .terms-policy-hero h1 {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .terms-policy-hero p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .terms-policy-content {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .terms-policy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .last-updated {
+    text-align: right;
+    margin-bottom: var(--spacing-lg);
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  
+  .terms-policy-section {
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .terms-policy-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .terms-policy-section h2 {
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-red);
+  }
+  
+  .terms-policy-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+  }
+  
+  .terms-policy-section p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .terms-policy-section ul {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+  }
+  
+  .terms-policy-section ul li {
+    margin-bottom: var(--spacing-xs);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    list-style-type: disc;
+  }
+  
+  @media (max-width: 768px) {
+    .terms-policy-hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .terms-policy-container {
+      padding: var(--spacing-lg);
+    }
+    
+    .terms-policy-section h2 {
+      font-size: 1.3rem;
+    }
+  }

@@ -1,0 +1,426 @@
+.account-page {
+    padding-top: 80px;
+  }
+  
+  .account-hero {
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-deep-purple) 0%, var(--color-dark-purple) 70%, var(--color-brown) 100%);
+  }
+  
+  .account-hero h1 {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .account-hero p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .account-content {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  /* Auth Container Styles */
+  .auth-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .auth-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .auth-tabs button {
+    flex: 1;
+    padding: var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+  }
+  
+  .auth-tabs button.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-red);
+  }
+  
+  .auth-content {
+    padding: var(--spacing-xl);
+  }
+  
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    color: var(--color-red);
+    transition: color var(--transition-fast);
+  }
+  
+  .forgot-password:hover {
+    color: var(--color-white);
+  }
+  
+  /* Dashboard Styles */
+  .account-dashboard {
+    display: flex;
+    gap: var(--spacing-xl);
+  }
+  
+  .dashboard-sidebar {
+    width: 250px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .user-info {
+    padding: var(--spacing-lg);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto var(--spacing-md);
+    border: 2px solid var(--color-red);
+  }
+  
+  .user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .user-info h3 {
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .user-info p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .dashboard-nav {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-nav button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-white);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+  }
+  
+  .dashboard-nav button:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .dashboard-nav button.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-red);
+    border-left: 3px solid var(--color-red);
+  }
+  
+  .dashboard-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dashboard-section h2 {
+    font-family: var(--font-secondary);
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .dashboard-section > p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .summary-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    text-align: center;
+  }
+  
+  .summary-card h3 {
+    font-size: 2.5rem;
+    color: var(--color-red);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .recent-orders,
+  .orders-list {
+    margin-top: var(--spacing-lg);
+  }
+  
+  .recent-orders h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .order-info p {
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .order-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .wishlist-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .remove-wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .wishlist-image {
+    height: 200px;
+  }
+  
+  .wishlist-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .wishlist-info {
+    padding: var(--spacing-md);
+    text-align: center;
+  }
+  
+  .wishlist-info h4 {
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .wishlist-price {
+    color: var(--color-red);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .addresses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .address-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+  }
+  
+  .address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .default-badge {
+    background: var(--color-red);
+    color: var(--color-white);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  .address-content {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .address-content p {
+    margin-bottom: var(--spacing-xs);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .address-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .add-address {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-medium);
+  }
+  
+  .add-address:hover {
+    border-color: var(--color-red);
+  }
+  
+  .add-address-content {
+    text-align: center;
+  }
+  
+  .add-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: 600px;
+  }
+  
+  .settings-form h3 {
+    font-size: 1.5rem;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .settings-form h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--color-red);
+  }
+  
+  @media (max-width: 1024px) {
+    .account-dashboard {
+      flex-direction: column;
+    }
+    
+    .dashboard-sidebar {
+      width: 100%;
+    }
+    
+    .dashboard-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    
+    .dashboard-nav button {
+      flex: 1;
+      text-align: center;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .account-hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .dashboard-summary {
+      grid-template-columns: 1fr;
+    }
+    
+    .order-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+    }
+    
+    .order-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+    
+    .addresses-grid {
+      grid-template-columns: 1fr;
+    }
+  }
