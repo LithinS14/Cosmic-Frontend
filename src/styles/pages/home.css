@@ -1,0 +1,133 @@
+.home-page {
+  padding-top: 80px; /* Space for the fixed navbar */
+  overflow-x: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--color-deep-purple) 0%,
+    var(--color-dark-purple) 70%,
+    var(--color-brown) 100%
+  );
+}
+
+/* Section spacing and transitions */
+.home-page section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle dividers between sections */
+.home-page section:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Enhance section transitions */
+.home-page section:nth-child(odd) {
+  background: linear-gradient(
+    135deg,
+    var(--color-deep-purple) 0%,
+    var(--color-dark-purple) 70%,
+    var(--color-brown) 100%
+  );
+}
+
+.home-page section:nth-child(even) {
+  background: linear-gradient(135deg, var(--color-brown) 0%, var(--color-dark-purple) 100%);
+}
+
+/* Add subtle parallax effect to sections */
+.home-page section {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Scroll indicator styling */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* Optimize for different screen sizes */
+@media (max-width: 1200px) {
+  .home-page section {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding-top: 60px; /* Smaller padding for mobile navbar */
+  }
+
+  .home-page section:not(:last-child)::after {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page section {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+}
+
+/* Add subtle animation for page load */
+.home-page {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Optimize performance */
+.home-page section {
+  will-change: transform, opacity;
+}
+
+/* Enhance accessibility */
+.home-page:focus {
+  outline: none;
+}
+
+.home-page:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: -2px;
+}
+
+/* Add smooth scrolling */
+.home-page {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper stacking context for 3D elements */
+.home-page {
+  isolation: isolate;
+}
+

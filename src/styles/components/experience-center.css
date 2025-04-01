@@ -1,0 +1,149 @@
+".experience-center {
+position:relative 
+;
+padding: var(--spacing-xl)
+0
+;
+overflow:hidden 
+;
+min-height: 600px
+;
+}
+
+.experience-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.experience-bg canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.experience-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  background: rgba(45, 27, 78, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.experience-text {
+  flex: 1;
+  padding: var(--spacing-xl);
+}
+
+.experience-text h2 {
+  font-family: var(--font-secondary);
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.experience-text h2::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-red);
+}
+
+.experience-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--spacing-lg);
+}
+
+.experience-features {
+  margin-bottom: var(--spacing-lg);
+}
+
+.experience-features li {
+  margin-bottom: var(--spacing-sm);
+  position: relative;
+  padding-left: 25px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.experience-features li::before {
+  content: "✧";
+  position: absolute;
+  left: 0;
+  color: var(--color-red);
+}
+
+.experience-image {
+  flex: 1;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.experience-content:hover .experience-image img {
+  transform: scale(1.05);
+}
+
+.experience-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, transparent 0%, rgba(45, 27, 78, 0.7) 100%);
+}
+
+@media (max-width: 1024px) {
+  .experience-content {
+    flex-direction: column-reverse;
+  }
+
+  .experience-image {
+    width: 100%;
+    height: 300px;
+  }
+
+  .experience-overlay {
+    background: linear-gradient(to top, rgba(45, 27, 78, 0.7) 0%, transparent 100%);
+  }
+
+  .experience-text {
+    text-align: center;
+  }
+
+  .experience-text h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .experience-features li {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .experience-text h2 {
+    font-size: 2rem;
+  }
+
+  .experience-text p {
+    font-size: 1rem;
+  }
+}
+
