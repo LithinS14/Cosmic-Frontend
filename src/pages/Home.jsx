@@ -28,9 +28,9 @@ const Home = () => {
       <Accessories />
       <Perfumes />
       <ExploreSection />
-      <Community />
       <ExperienceCenter />
       <PhotoCollage />
+      <Community />
     </motion.main>
   );
 };

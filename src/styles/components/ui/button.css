@@ -1,188 +1,169 @@
 .cosmic-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all var(--transition-medium);
-    border: none;
-    outline: none;
-    position: relative;
-    overflow: hidden;
-    font-family: inherit;
-    font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* Button wrapper for link buttons */
+.button-wrapper {
+  display: inline-block;
+}
+
+/* Button sizes */
+.cosmic-button.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.cosmic-button.medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.cosmic-button.large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Button variants */
+.cosmic-button.primary {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+.cosmic-button.primary:hover {
+  background-color: #ff3c5f;
+}
+
+.cosmic-button.secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cosmic-button.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.cosmic-button.outline {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-red);
+}
+
+.cosmic-button.outline:hover {
+  background-color: var(--color-red);
+}
+
+.cosmic-button.ghost {
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+.cosmic-button.ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cosmic-button.danger {
+  background-color: #e74c3c;
+  color: var(--color-white);
+}
+
+.cosmic-button.danger:hover {
+  background-color: #c0392b;
+}
+
+/* Full width button */
+.cosmic-button.full-width {
+  width: 100%;
+}
+
+/* Disabled state */
+.cosmic-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Button with icon */
+.cosmic-button.with-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.cosmic-button.icon-left .button-icon {
+  margin-right: 0.5rem;
+}
+
+.cosmic-button.icon-right .button-icon {
+  margin-left: 0.5rem;
+}
+
+.cosmic-button .button-text {
+  position: relative;
+  z-index: 2;
+}
+
+.cosmic-button .button-icon {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading state */
+.cosmic-button.loading {
+  cursor: wait;
+}
+
+.cosmic-button.loading .button-text {
+  visibility: hidden;
+}
+
+.cosmic-button.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--color-white);
+  animation: spin 1s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  /* Button wrapper for link buttons */
-  .button-wrapper {
-    display: inline-block;
-  }
-  
-  /* Button sizes */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .cosmic-button.small {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
-  
+
   .cosmic-button.medium {
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .cosmic-button.large {
+    padding: 0.8rem 1.6rem;
     font-size: 1rem;
   }
-  
-  .cosmic-button.large {
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-  }
-  
-  /* Button variants */
-  .cosmic-button.primary {
-    background-color: var(--color-red);
-    color: var(--color-white);
-  }
-  
-  .cosmic-button.primary:hover {
-    background-color: #ff3c5f;
-  }
-  
-  .cosmic-button.secondary {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--color-white);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .cosmic-button.secondary:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  .cosmic-button.outline {
-    background-color: transparent;
-    color: var(--color-white);
-    border: 2px solid var(--color-red);
-  }
-  
-  .cosmic-button.outline:hover {
-    background-color: var(--color-red);
-  }
-  
-  .cosmic-button.ghost {
-    background-color: transparent;
-    color: var(--color-white);
-  }
-  
-  .cosmic-button.ghost:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .cosmic-button.danger {
-    background-color: #e74c3c;
-    color: var(--color-white);
-  }
-  
-  .cosmic-button.danger:hover {
-    background-color: #c0392b;
-  }
-  
-  /* Full width button */
-  .cosmic-button.full-width {
-    width: 100%;
-  }
-  
-  /* Disabled state */
-  .cosmic-button.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  
-  /* Button with icon */
-  .cosmic-button.with-icon {
-    display: inline-flex;
-    align-items: center;
-  }
-  
-  .cosmic-button.icon-left .button-icon {
-    margin-right: 0.5rem;
-  }
-  
-  .cosmic-button.icon-right .button-icon {
-    margin-left: 0.5rem;
-  }
-  
-  /* Button hover effect */
-  .cosmic-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 1;
-  }
-  
-  .cosmic-button:hover::before {
-    transform: translateX(0);
-  }
-  
-  .cosmic-button .button-text {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .cosmic-button .button-icon {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Loading state */
-  .cosmic-button.loading {
-    cursor: wait;
-  }
-  
-  .cosmic-button.loading .button-text {
-    visibility: hidden;
-  }
-  
-  .cosmic-button.loading::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--color-white);
-    animation: spin 1s ease-in-out infinite;
-    z-index: 2;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .cosmic-button.small {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
-    }
-    
-    .cosmic-button.medium {
-      padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
-    }
-    
-    .cosmic-button.large {
-      padding: 0.8rem 1.6rem;
-      font-size: 1rem;
-    }
-  }
+}
+

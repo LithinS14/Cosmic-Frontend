@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-@import './variables.css';
-@import './animations.css';
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import "./variables.css";
+@import "./animations.css";
 
 * {
   margin: 0;
@@ -10,9 +10,31 @@
 
 body {
   font-family: var(--font-primary);
-  background: linear-gradient(135deg, var(--color-deep-purple) 0%, var(--color-dark-purple) 70%, var(--color-brown) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-black) 0%,
+    var(--color-deep-purple) 70%,
+    var(--color-dark-purple) 100%
+  );
   color: var(--color-white);
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Space background elements */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100px 100px, 120px 120px, 80px 80px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 a {
@@ -27,7 +49,8 @@ button {
   font-family: var(--font-primary);
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -40,6 +63,7 @@ ul, ol {
 
 .section {
   padding: var(--spacing-xl) 0;
+  position: relative;
 }
 
 .section-title {
@@ -51,7 +75,7 @@ ul, ol {
 }
 
 .section-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 0;
@@ -66,9 +90,8 @@ ul, ol {
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: all var(--transition-medium);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   position: relative;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -77,27 +100,37 @@ ul, ol {
   color: var(--color-white);
 }
 
+.btn-primary:hover {
+  background-color: #ff3c5f;
+}
+
 .btn-secondary {
   background-color: transparent;
   color: var(--color-white);
   border: 2px solid var(--color-red);
 }
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  transition: transform 0.5s;
-  transform: skewX(-15deg);
-  z-index: -1;
+.btn-secondary:hover {
+  background-color: rgba(255, 0, 51, 0.1);
 }
 
-.btn:hover::before {
-  transform: translateX(100%) skewX(-15deg);
+/* Star field animation */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.star {
+  position: fixed;
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: -1;
+  animation: twinkle var(--twinkle-duration, 4s) infinite var(--twinkle-delay, 0s);
 }
 
 /* Responsive styles */
@@ -117,8 +150,9 @@ ul, ol {
   .section-title {
     font-size: 1.75rem;
   }
-  
+
   .btn {
     padding: 0.6rem 1.2rem;
   }
 }
+
