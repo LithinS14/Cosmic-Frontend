@@ -149,41 +149,23 @@ const Navbar = () => {
                 <AnimatePresence>
                   {shopDropdownOpen && (
                     <motion.div
-                      className="shop-dropdown"
-                      variants={dropdownVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                    >
-                      <div className="shop-dropdown-content">
-                        <div className="shop-dropdown-categories">
-                          {shopCategories.map((category) => (
-                            <motion.div key={category.id} variants={itemVariants} className="shop-category-item">
-                              <Link to={category.path}>{category.name}</Link>
-                            </motion.div>
-                          ))}
-                        </div>
-                        <motion.div className="shop-dropdown-featured" variants={itemVariants}>
-                          <div className="featured-header">Featured</div>
-                          <div className="featured-items">
-                            <div className="featured-item">
-                              <div className="featured-image">
-                                <img
-                                  src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?q=80&w=1974&auto=format&fit=crop"
-                                  alt="Featured Collection"
-                                />
-                              </div>
-                              <div className="featured-info">
-                                <h4>Cosmic Explorer Collection</h4>
-                                <Link to="/shop/new-arrivals" className="featured-link">
-                                  Shop Now
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
+                    className="shop-dropdown"
+                    variants={dropdownVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <div className="shop-dropdown-content">
+                      <div className="shop-dropdown-categories">
+                        {shopCategories.map((category) => (
+                          <motion.div key={category.id} variants={itemVariants} className="shop-category-item">
+                            <Link to={category.path}>{category.name}</Link>
+                          </motion.div>
+                        ))}
                       </div>
-                    </motion.div>
+                    </div>
+                  </motion.div>
+                  
                   )}
                 </AnimatePresence>
               </motion.li>
