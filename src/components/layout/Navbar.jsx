@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ShoppingCart, User, Search, Menu, X, ChevronDown } from "lucide-react"
+import { Search, Menu, X, ChevronDown } from "lucide-react"
 import "../../styles/components/navbar.css"
 
 const shopCategories = [
@@ -18,6 +18,9 @@ const shopCategories = [
 ]
 
 const Navbar = () => {
+  // Add these new state variables at the top of the component
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
+  const [visible, setVisible] = useState(true)
   const [searchOpen, setSearchOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -27,8 +30,15 @@ const Navbar = () => {
   const location = useLocation()
 
   useEffect(() => {
+    // Replace the existing handleScroll function in the first useEffect
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 50
+      const currentScrollPos = window.scrollY
+      const isScrolled = currentScrollPos > 50
+
+      // Set visibility based on scroll direction
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10)
+      setPrevScrollPos(currentScrollPos)
+
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled)
       }
@@ -53,7 +63,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
-  }, [scrolled, location])
+  }, [scrolled, location, prevScrollPos])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -118,7 +128,9 @@ const Navbar = () => {
   }
 
   return (
-    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+    // Update the header className to include visibility state
+    // Change the header opening tag to:
+    <header className={`navbar ${scrolled ? "scrolled" : ""} ${!visible ? "navbar-hidden" : ""}`}>
       <div className="navbar-container">
         <Link to="/" className="logo">
           <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
@@ -163,48 +175,37 @@ const Navbar = () => {
                             </motion.div>
                           ))}
                         </div>
-                        <motion.div className="shop-dropdown-featured" variants={itemVariants}>
-                          <div className="featured-header">Featured</div>
-                          <div className="featured-items">
-                            <div className="featured-item">
-                              <div className="featured-image">
-                                <img
-                                  src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?q=80&w=1974&auto=format&fit=crop"
-                                  alt="Featured Collection"
-                                />
-                              </div>
-                              <div className="featured-info">
-                                <h4>Cosmic Explorer Collection</h4>
-                                <Link to="/shop/new-arrivals" className="featured-link">
-                                  Shop Now
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </motion.li>
               <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/our-story">our story.</Link>
+                <Link to="/our-story" className="nav-link">
+                  our story.
+                </Link>
               </motion.li>
               <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/magazine">magazine.</Link>
+                <Link to="/magazine" className="nav-link">
+                  magazine.
+                </Link>
               </motion.li>
               <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/track-order">track order.</Link>
+                <Link to="/track-order" className="nav-link">
+                  track order.
+                </Link>
               </motion.li>
             </ul>
           </motion.nav>
         ) : (
+          // Update the search container JSX to match the floating navbar position exactly
+          // Replace the existing search container motion.div with this:
           <motion.div
             className="search-container"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.05 }}
           >
             <Search size={18} color="rgba(255, 255, 255, 0.7)" />
             <input type="text" placeholder="Search for products..." autoFocus />
@@ -222,18 +223,18 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}
             aria-label="Search"
           >
-            <Search size={20} />
+            {/* <Search size={20} /> */}search
           </motion.button>
 
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <Link to="/account" className="account-btn" aria-label="Account">
-              <User size={20} />
+              {/* <User size={20} /> */}account
             </Link>
           </motion.div>
 
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <Link to="/cart" className="cart-btn" aria-label="Cart">
-              <ShoppingCart size={20} />
+              {/* <ShoppingCart size={20} /> */}carts
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </Link>
           </motion.div>
