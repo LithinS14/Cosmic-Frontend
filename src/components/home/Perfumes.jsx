@@ -17,7 +17,7 @@ const perfumes = [
     id: 2,
     name: "Stellar Glow",
     price: 89.99,
-    image: "https://images.unsplash.com/photo-1592945403407-9caf930b0c6b?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2053&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Radiant notes of jasmine, amber, and celestial woods",
   },
   {
