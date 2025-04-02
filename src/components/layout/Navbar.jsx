@@ -204,18 +204,18 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}
             aria-label="Search"
           >
-            <Search size={20} />
+            {/* <Search size={20} /> */}search
           </motion.button>
 
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <Link to="/account" className="account-btn" aria-label="Account">
-              <User size={20} />
+              {/* <User size={20} /> */}account
             </Link>
           </motion.div>
 
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <Link to="/cart" className="cart-btn" aria-label="Cart">
-              <ShoppingCart size={20} />
+              {/* <ShoppingCart size={20} /> */}carts
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </Link>
           </motion.div>
