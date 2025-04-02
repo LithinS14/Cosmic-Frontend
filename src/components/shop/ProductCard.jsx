@@ -1,80 +1,117 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import '../../styles/components/shop/product-card.css';
+"use client"
 
-const ProductCard = ({ product }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  
-  // Cycle through product images on hover
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
+import { ShoppingCart, Heart, Eye, Star } from "lucide-react"
+import "../../styles/components/shop/product-card.css"
+
+const ProductCard = ({ product, index, onAddToCart }) => {
+  const [isHovered, setIsHovered] = useState(false)
+  const [selectedColor, setSelectedColor] = useState(product.colors ? product.colors[0] : null)
+  const [selectedSize, setSelectedSize] = useState(product.sizes ? product.sizes[0] : null)
+  const [showQuickView, setShowQuickView] = useState(false)
+
   const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (product.images && product.images.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex(prevIndex => 
-          prevIndex === product.images.length - 1 ? 0 : prevIndex + 1
-        );
-      }, 1000);
-      
-      return () => clearInterval(interval);
-    }
-  };
-  
+    setIsHovered(true)
+  }
+
   const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCurrentImageIndex(0);
-  };
-  
-  // Variants for animation
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    hover: { y: -10, transition: { duration: 0.3 } }
-  };
-  
-  const imageVariants = {
-    hover: { scale: 1.05, transition: { duration: 0.3 } }
-  };
-  
-  const infoVariants = {
-    hover: { y: -5, transition: { duration: 0.3 } }
-  };
-  
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 20 },
-    hover: { opacity: 1, y: 0, transition: { duration: 0.3 } }
-  };
+    setIsHovered(false)
+  }
+
+  const handleAddToCart = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (onAddToCart) {
+      onAddToCart({
+        ...product,
+        selectedColor,
+        selectedSize,
+        quantity: 1,
+      })
+    }
+  }
+
+  const handleAddToWishlist = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    // Add to wishlist functionality
+  }
+
+  const toggleQuickView = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setShowQuickView(!showQuickView)
+  }
 
   return (
-    <motion.div 
+    <motion.div
       className="product-card"
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover="hover"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      viewport={{ once: true, margin: "-100px" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="product-badge-container">
-        {product.isNew && <span className="product-badge new">New</span>}
-        {product.isSale && <span className="product-badge sale">Sale</span>}
-        {product.isLimited && <span className="product-badge limited">Limited</span>}
-      </div>
-      
       <Link to={`/product/${product.id}`} className="product-link">
-        <motion.div className="product-image" variants={imageVariants}>
-          <img 
-            src={product.images ? product.images[currentImageIndex] : '/placeholder.svg?height=400&width=300'} 
-            alt={product.name} 
+        <div className="product-badges">
+          {product.isNew && <span className="badge new-badge">New</span>}
+          {product.salePrice && <span className="badge sale-badge">Sale</span>}
+        </div>
+
+        <div className="product-image-container">
+          <motion.img
+            src={product.images[0] || "/placeholder.svg"}
+            alt={product.name}
+            className="product-image"
+            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+            transition={{ duration: 0.5 }}
           />
-          <div className="product-overlay"></div>
-        </motion.div>
-        
-        <motion.div className="product-info" variants={infoVariants}>
+
+          {isHovered && (
+            <motion.div
+              className="product-actions"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <button className="action-btn add-to-cart" onClick={handleAddToCart}>
+                <ShoppingCart size={18} />
+                <span>Add to Cart</span>
+              </button>
+              <button className="action-btn wishlist" onClick={handleAddToWishlist}>
+                <Heart size={18} />
+              </button>
+              <button className="action-btn quick-view" onClick={toggleQuickView}>
+                <Eye size={18} />
+                <span>Quick View</span>
+              </button>
+            </motion.div>
+          )}
+        </div>
+
+        <div className="product-info">
           <h3 className="product-name">{product.name}</h3>
-          <p className="product-category">{product.category}</p>
-          
+          <div className="product-category">{product.category}</div>
+
+          <div className="product-rating">
+            <div className="stars">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={14}
+                  className={i < Math.floor(product.rating || 4.5) ? "filled" : "empty"}
+                  fill={i < Math.floor(product.rating || 4.5) ? "#ff0033" : "none"}
+                  stroke={i < Math.floor(product.rating || 4.5) ? "#ff0033" : "#999"}
+                />
+              ))}
+            </div>
+            <span className="review-count">({product.reviews || 0})</span>
+          </div>
+
           <div className="product-price">
             {product.salePrice ? (
               <>
@@ -85,34 +122,95 @@ const ProductCard = ({ product }) => {
               <span>${product.price.toFixed(2)}</span>
             )}
           </div>
-          
-          {product.colors && product.colors.length > 0 && (
+
+          {product.colors && (
             <div className="product-colors">
               {product.colors.map((color, index) => (
-                <div 
-                  key={index} 
-                  className="color-swatch" 
+                <div
+                  key={index}
+                  className={`color-swatch ${selectedColor === color ? "selected" : ""}`}
                   style={{ backgroundColor: color }}
-                  title={`Color ${index + 1}`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setSelectedColor(color)
+                  }}
                 ></div>
               ))}
             </div>
           )}
-        </motion.div>
+        </div>
       </Link>
-      
-      <motion.div 
-        className="product-actions"
-        variants={buttonVariants}
-        initial="hidden"
-        animate={isHovered ? "hover" : "hidden"}
-      >
-        <button className="btn-add-cart">Add to Cart</button>
-        <button className="btn-wishlist">♥</button>
-        <button className="btn-quickview">Quick View</button>
-      </motion.div>
-    </motion.div>
-  );
-};
 
-export default ProductCard;
+      {showQuickView && (
+        <div className="quick-view-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="quick-view-content">
+            <button className="close-quick-view" onClick={toggleQuickView}>
+              ×
+            </button>
+
+            <div className="quick-view-image">
+              <img src={product.images[0] || "/placeholder.svg"} alt={product.name} />
+            </div>
+
+            <div className="quick-view-details">
+              <h3>{product.name}</h3>
+              <div className="quick-view-price">${product.price.toFixed(2)}</div>
+              <p className="quick-view-category">{product.category}</p>
+
+              <p className="quick-view-description">
+                {product.description || "A stylish item from our cosmic collection."}
+              </p>
+
+              {product.colors && (
+                <div className="quick-view-colors">
+                  <h4>Colors:</h4>
+                  <div className="color-options">
+                    {product.colors.map((color, index) => (
+                      <div
+                        key={index}
+                        className={`color-option ${selectedColor === color ? "selected" : ""}`}
+                        style={{ backgroundColor: color }}
+                        onClick={() => setSelectedColor(color)}
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {product.sizes && (
+                <div className="quick-view-sizes">
+                  <h4>Sizes:</h4>
+                  <div className="size-options">
+                    {product.sizes.map((size, index) => (
+                      <div
+                        key={index}
+                        className={`size-option ${selectedSize === size ? "selected" : ""}`}
+                        onClick={() => setSelectedSize(size)}
+                      >
+                        {size}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="quick-view-actions">
+                <button className="btn-add-to-cart" onClick={handleAddToCart}>
+                  <ShoppingCart size={18} />
+                  Add to Cart
+                </button>
+                <button className="btn-view-details">
+                  <Link to={`/product/${product.id}`}>View Details</Link>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+export default ProductCard
+

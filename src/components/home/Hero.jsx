@@ -1,157 +1,13 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
+import { useEffect } from "react"
 import { motion } from "framer-motion"
-import { Canvas } from "@react-three/fiber"
-import { Stars, OrbitControls } from "@react-three/drei"
+import { Link } from "react-router-dom"
+import { ArrowRight } from "lucide-react"
 import "../../styles/components/hero.css"
 
-const SpaceModel = () => {
-  const group = useRef()
-  const [rotation, setRotation] = useState(0)
-
-  useEffect(() => {
-    if (group.current) {
-      group.current.rotation.y = Math.PI / 4
-    }
-
-    const interval = setInterval(() => {
-      setRotation((prev) => prev + 0.01)
-    }, 50)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <group ref={group} rotation={[0, rotation, 0]}>
-      {/* Planet */}
-      <mesh>
-        <sphereGeometry args={[1.5, 64, 64]} />
-        <meshStandardMaterial
-          color="#2d1b4e"
-          metalness={0.8}
-          roughness={0.2}
-          emissive="#3d2314"
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-
-      {/* Rings */}
-      <mesh position={[0, 0, 0]} rotation={[Math.PI / 4, 0, 0]}>
-        <torusGeometry args={[2.2, 0.2, 32, 100]} />
-        <meshStandardMaterial
-          color="#ff0033"
-          metalness={0.9}
-          roughness={0.1}
-          emissive="#ff0033"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-
-      {/* Smaller orbiting moon */}
-      <mesh position={[Math.cos(rotation * 2) * 3, Math.sin(rotation * 2) * 0.5, Math.sin(rotation * 2) * 3]}>
-        <sphereGeometry args={[0.3, 32, 32]} />
-        <meshStandardMaterial
-          color="#00d4ff"
-          metalness={0.7}
-          roughness={0.3}
-          emissive="#00d4ff"
-          emissiveIntensity={0.3}
-        />
-      </mesh>
-
-      {/* Asteroid belt */}
-      {Array.from({ length: 50 }).map((_, i) => {
-        const angle = (i / 50) * Math.PI * 2
-        const radius = 4 + Math.random() * 0.5
-        const size = 0.02 + Math.random() * 0.05
-
-        return (
-          <mesh
-            key={i}
-            position={[
-              Math.cos(angle + rotation * (0.5 + Math.random() * 0.5)) * radius,
-              (Math.random() - 0.5) * 0.5,
-              Math.sin(angle + rotation * (0.5 + Math.random() * 0.5)) * radius,
-            ]}
-            rotation={[Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]}
-          >
-            <dodecahedronGeometry args={[size, 0]} />
-            <meshStandardMaterial
-              color={i % 3 === 0 ? "#ff6ec7" : i % 3 === 1 ? "#aaa" : "#777"}
-              metalness={0.8}
-              roughness={0.5}
-            />
-          </mesh>
-        )
-      })}
-    </group>
-  )
-}
-
-const FloatingParticles = ({ count = 30 }) => {
-  const particles = useRef()
-  const [positions, setPositions] = useState([])
-
-  useEffect(() => {
-    const newPositions = []
-    for (let i = 0; i < count; i++) {
-      newPositions.push({
-        x: (Math.random() - 0.5) * 10,
-        y: (Math.random() - 0.5) * 10,
-        z: (Math.random() - 0.5) * 10,
-        size: Math.random() * 0.05 + 0.02,
-        speed: Math.random() * 0.01 + 0.005,
-        offset: Math.random() * Math.PI * 2,
-      })
-    }
-    setPositions(newPositions)
-  }, [count])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (particles.current) {
-        particles.current.rotation.y += 0.001
-        particles.current.rotation.x += 0.0005
-      }
-    }, 16)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <group ref={particles}>
-      {positions.map((particle, i) => (
-        <mesh
-          key={i}
-          position={[
-            particle.x,
-            particle.y + Math.sin(Date.now() * particle.speed + particle.offset) * 0.2,
-            particle.z,
-          ]}
-        >
-          <sphereGeometry args={[particle.size, 8, 8]} />
-          <meshStandardMaterial
-            color={i % 5 === 0 ? "#ff0033" : i % 5 === 1 ? "#00d4ff" : i % 5 === 2 ? "#ff6ec7" : "#ffffff"}
-            emissive={i % 5 === 0 ? "#ff0033" : i % 5 === 1 ? "#00d4ff" : i % 5 === 2 ? "#ff6ec7" : "#ffffff"}
-            emissiveIntensity={0.5}
-          />
-        </mesh>
-      ))}
-    </group>
-  )
-}
-
 const Hero = () => {
-  const [scrollY, setScrollY] = useState(0)
-
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-
     // Create star field
     const createStars = () => {
       const starsContainer = document.createElement("div")
@@ -174,7 +30,6 @@ const Hero = () => {
     createStars()
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
       const starsContainer = document.querySelector(".stars-container")
       if (starsContainer) {
         document.body.removeChild(starsContainer)
@@ -200,17 +55,18 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span>clothing curated for</span>
             <span className="highlight">cosmic explorers</span>
+            <span className="subtitle">Elevate your style beyond the stars</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="hero-description"
           >
-            Elevate your style to interstellar heights with our exclusive collection designed for those who dare to
-            stand out. Discover fashion that transcends boundaries and embraces the mysteries of the cosmos.
+            Discover our exclusive collection designed for those who dare to stand out. Clothing that transcends
+            boundaries and embraces the mysteries of the cosmos.
           </motion.p>
 
           <motion.div
@@ -219,12 +75,14 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <a href="/shop" className="btn btn-primary">
+            <Link to="/shop" className="btn btn-primary">
               Explore Collection
-            </a>
-            <a href="/our-story" className="btn btn-secondary">
+              <ArrowRight size={16} className="btn-icon" />
+            </Link>
+
+            <Link to="/our-story" className="btn btn-secondary">
               Our Story
-            </a>
+            </Link>
           </motion.div>
 
           <motion.div
@@ -241,60 +99,67 @@ const Hero = () => {
               <span className="stat-number">10k+</span>
               <span className="stat-label">Happy Customers</span>
             </div>
-            <div className="stat">
-              <span className="stat-number">100%</span>
-              <span className="stat-label">Satisfaction</span>
-            </div>
           </motion.div>
         </div>
 
         <motion.div
           className="hero-image"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotateY: 0,
+            transition: {
+              duration: 1.2,
+              delay: 0.3,
+              ease: "easeOut",
+            },
+          }}
+          whileHover={{
+            scale: 1.03,
+            rotateY: 5,
+            transition: { duration: 0.5 },
+          }}
         >
-          <Canvas className="hero-canvas">
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00d4ff" />
-            <SpaceModel />
-            <FloatingParticles />
-            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-          </Canvas>
-          <div className="model-overlay"></div>
-
-          <div className="hero-floating-elements">
+          <div className="image-container">
+            <img
+              src="src\assets\pexels-vika-glitter-392079-23232336.jpg"
+              alt="Cosmic Explorer"
+              className="hero-main-image"
+            />
             <motion.div
-              className="floating-element element-1"
+              className="image-glow"
               animate={{
-                y: [0, -15, 0],
-                rotate: [0, 5, 0],
+                opacity: [0.4, 0.6, 0.4],
+                scale: [1, 1.05, 1],
               }}
               transition={{
-                duration: 6,
+                duration: 4,
                 repeat: Number.POSITIVE_INFINITY,
                 repeatType: "reverse",
               }}
-            >
-            </motion.div>
-
-            <motion.div
-              className="floating-element element-2"
-              animate={{
-                y: [0, 20, 0],
-                rotate: [0, -8, 0],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "reverse",
-                delay: 1,
-              }}
-            >
-            </motion.div>
+            ></motion.div>
           </div>
+          <div className="hero-image-overlay"></div>
+
+          <motion.div
+            className="floating-element element-1"
+            animate={{
+              y: [0, -15, 0],
+              rotate: [0, 5, 0],
+              opacity: [0.7, 1, 0.7],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+            }}
+          >
+            <div className="element-content">
+              <span className="element-label">New</span>
+              <span className="element-text">Cosmic Explorer Collection</span>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 

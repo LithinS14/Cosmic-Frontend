@@ -41,7 +41,7 @@
 
 .hero-text {
   flex: 1;
-  max-width: 600px;
+  max-width: 500px;
   z-index: 1;
   position: relative;
 }
@@ -61,18 +61,27 @@
 
 .hero-text h1 {
   font-family: var(--font-secondary);
-  font-size: 4rem;
+  font-size: 5rem;
   line-height: 1.1;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   display: flex;
   flex-direction: column;
 }
 
 .hero-text h1 .highlight {
   color: var(--color-red);
-  font-size: 4.5rem;
   position: relative;
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.hero-text h1 .subtitle {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .hero-text h1 .highlight::after {
@@ -87,17 +96,27 @@
   z-index: -1;
 }
 
-.hero-text p {
-  font-size: 1.2rem;
+.hero-description {
+  font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: var(--spacing-xl);
   color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--spacing-lg);
+  max-width: 450px;
 }
 
 .hero-buttons {
   display: flex;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-xl);
+}
+
+.btn-icon {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.btn:hover .btn-icon {
+  transform: translateX(4px);
 }
 
 .hero-stats {
@@ -123,63 +142,89 @@
 }
 
 .hero-image {
-  flex: 1;
-  height: 100%;
+  flex: 1.2;
+  height: 90%;
   position: relative;
+  overflow: visible;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
-.hero-canvas {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
+.image-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
 }
 
-.model-overlay {
+.hero-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s ease;
+}
+
+.image-glow {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 30%, var(--color-deep-purple) 100%);
+  background: radial-gradient(circle at center, rgba(255, 0, 51, 0.3), transparent 70%);
   pointer-events: none;
+  z-index: 2;
 }
 
-.hero-floating-elements {
+.hero-image-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: linear-gradient(135deg, rgba(45, 27, 78, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%);
   pointer-events: none;
+  z-index: 1;
 }
 
 .floating-element {
   position: absolute;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.floating-element img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 3;
 }
 
 .element-1 {
-  width: 150px;
-  height: 200px;
-  top: 20%;
-  right: 10%;
+  top: 10%;
+  right: -5%;
+  min-width: 200px;
 }
 
-.element-2 {
-  width: 120px;
-  height: 160px;
-  bottom: 25%;
-  right: 25%;
+.element-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.element-label {
+  display: inline-block;
+  background: var(--color-red);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.element-text {
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .scroll-indicator {
@@ -215,21 +260,15 @@
 
 @media (max-width: 1024px) {
   .hero-text h1 {
-    font-size: 3.5rem;
-  }
-
-  .hero-text h1 .highlight {
     font-size: 4rem;
   }
 
-  .element-1 {
-    width: 120px;
-    height: 160px;
+  .hero-text h1 .subtitle {
+    font-size: 1.5rem;
   }
 
-  .element-2 {
-    width: 100px;
-    height: 140px;
+  .element-1 {
+    right: 0;
   }
 }
 
@@ -246,12 +285,17 @@
   }
 
   .hero-text h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     align-items: center;
   }
 
-  .hero-text h1 .highlight {
-    font-size: 3.5rem;
+  .hero-text h1 .subtitle {
+    font-size: 1.3rem;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-buttons {
@@ -264,6 +308,7 @@
 
   .hero-image {
     height: 50%;
+    width: 100%;
   }
 
   .floating-element {
@@ -276,12 +321,8 @@
     font-size: 2.5rem;
   }
 
-  .hero-text h1 .highlight {
-    font-size: 3rem;
-  }
-
-  .hero-text p {
-    font-size: 1rem;
+  .hero-text h1 .subtitle {
+    font-size: 1.1rem;
   }
 
   .hero-buttons {

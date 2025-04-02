@@ -1,16 +1,30 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
-import { ShoppingCart, User, Search, Menu, X } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Link, useLocation } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
+import { ShoppingCart, User, Search, Menu, X, ChevronDown } from "lucide-react"
 import "../../styles/components/navbar.css"
+
+const shopCategories = [
+  { id: "all", name: "Shop All", path: "/shop" },
+  { id: "hoodies", name: "Hoodies", path: "/shop/hoodies" },
+  { id: "t-shirts", name: "T-Shirts", path: "/shop/t-shirts" },
+  { id: "sweatshirts", name: "Sweatshirts", path: "/shop/sweatshirts" },
+  { id: "korean-tees", name: "Korean T-Shirts", path: "/shop/korean-tees" },
+  { id: "accessories", name: "Accessories", path: "/shop/accessories" },
+  { id: "perfumes", name: "Perfumes", path: "/shop/perfumes" },
+  { id: "new-arrivals", name: "New Arrivals", path: "/shop/new-arrivals" },
+]
 
 const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0)
+  const [shopDropdownOpen, setShopDropdownOpen] = useState(false)
+  const shopDropdownRef = useRef(null)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,10 +47,26 @@ const Navbar = () => {
       }
     }
 
+    // Close mobile menu when route changes
+    setMobileMenuOpen(false)
+
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
-  }, [scrolled])
+  }, [scrolled, location])
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (shopDropdownRef.current && !shopDropdownRef.current.contains(event.target)) {
+        setShopDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   const toggleSearch = () => {
     setSearchOpen(!searchOpen)
@@ -46,6 +76,45 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
     if (searchOpen) setSearchOpen(false)
+  }
+
+  const handleShopMouseEnter = () => {
+    setShopDropdownOpen(true)
+  }
+
+  const handleShopMouseLeave = () => {
+    setShopDropdownOpen(false)
+  }
+
+  const dropdownVariants = {
+    hidden: { opacity: 0, y: -20, height: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      height: "auto",
+      transition: {
+        duration: 0.3,
+        staggerChildren: 0.05,
+        when: "beforeChildren",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      height: 0,
+      transition: {
+        duration: 0.2,
+        when: "afterChildren",
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -20 },
   }
 
   return (
@@ -65,8 +134,58 @@ const Navbar = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <ul>
-              <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/shop">shop all.</Link>
+              <motion.li
+                className="shop-dropdown-container"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onMouseEnter={handleShopMouseEnter}
+                onMouseLeave={handleShopMouseLeave}
+                ref={shopDropdownRef}
+              >
+                <Link to="/shop" className="dropdown-trigger">
+                  shop.
+                  <ChevronDown size={16} className={`dropdown-arrow ${shopDropdownOpen ? "open" : ""}`} />
+                </Link>
+                <AnimatePresence>
+                  {shopDropdownOpen && (
+                    <motion.div
+                      className="shop-dropdown"
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="shop-dropdown-content">
+                        <div className="shop-dropdown-categories">
+                          {shopCategories.map((category) => (
+                            <motion.div key={category.id} variants={itemVariants} className="shop-category-item">
+                              <Link to={category.path}>{category.name}</Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                        <motion.div className="shop-dropdown-featured" variants={itemVariants}>
+                          <div className="featured-header">Featured</div>
+                          <div className="featured-items">
+                            <div className="featured-item">
+                              <div className="featured-image">
+                                <img
+                                  src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?q=80&w=1974&auto=format&fit=crop"
+                                  alt="Featured Collection"
+                                />
+                              </div>
+                              <div className="featured-info">
+                                <h4>Cosmic Explorer Collection</h4>
+                                <Link to="/shop/new-arrivals" className="featured-link">
+                                  Shop Now
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.li>
               <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                 <Link to="/our-story">our story.</Link>
