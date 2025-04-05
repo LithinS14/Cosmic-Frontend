@@ -1,3 +1,8 @@
+/* Add this new class for hiding navbar on scroll down */
+.navbar-hidden {
+  transform: translateY(-100%);
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -5,14 +10,14 @@
   width: 100%;
   z-index: var(--z-overlay);
   padding: 1.5rem 0;
-  transition: all var(--transition-medium);
+  transition: all var(--transition-medium), transform 0.3s ease;
 }
 
 .navbar.scrolled {
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(10px);
+  background: transparent;
+  backdrop-filter: none;
   padding: 1rem 0;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .navbar-container {
@@ -27,7 +32,7 @@
 .logo h1 {
   font-family: var(--font-secondary);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight:bolder;
   color: var(--color-red);
   letter-spacing: 2px;
 }
@@ -41,7 +46,7 @@
   border-radius: 50px;
   padding: 0.7rem 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  min-width: 500px;
+  min-width: 50px;
   display: flex;
   justify-content: center;
 }
@@ -49,34 +54,21 @@
 .nav-links ul {
   display: flex;
   gap: 5rem;
+
+  align-items: center;
+
 }
 
-.nav-links a {
+.nav-links a,
+.nav-links .nav-link {
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: bolder;
   color: var(--color-white);
   transition: color var(--transition-fast);
   position: relative;
   padding: 0.5rem 0;
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-red);
-  transition: width var(--transition-medium);
-}
-
-.nav-links a:hover {
-  color: var(--color-red);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
+  display: inline-block;
+  line-height: 1;
 }
 
 .nav-actions {
@@ -107,16 +99,19 @@
   left: 30%;
   transform: translateX(-50%);
   width: auto;
-  min-width: 600px;
-  padding: 0.7rem 1.5rem;
-  margin-top: 10px;
-  background: rgba(40, 16, 62, 0.4);
+
+  min-width: 630px;
+  padding: 0.7rem 2rem;
+  margin-top: 14px;
+  background: rgba(36, 19, 61, 0.8);
+
   backdrop-filter: blur(10px);
   border-radius: 50px;
   display: flex;
   align-items: center;
   z-index: var(--z-modal);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  align-items: center;
 }
 
 .search-container input {
@@ -217,14 +212,18 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: 200px; 
-  background-color: rgba(0,0,0,0.5);
+
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.5);
+
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 10px 0;
   display: flex;
-  flex-direction: column; 
-  gap: 4px; 
+
+  flex-direction: column;
+  gap: 4px;
+
 }
 
 .shop-category-item {
@@ -237,7 +236,8 @@
 
 .shop-dropdown-content {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+
   gap: 4px;
 }
 /* sk -change */

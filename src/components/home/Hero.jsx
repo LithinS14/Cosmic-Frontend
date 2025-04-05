@@ -4,8 +4,7 @@ import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
-import "../../styles/components/hero.css";
-import Heroimg from '../../assets/pexels-vika-glitter-392079-23232336.jpg'
+import "../../styles/components/hero.css"
 
 const Hero = () => {
   useEffect(() => {
@@ -91,6 +90,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
+            style={{ marginBottom: "3rem" }}
           >
             <div className="stat">
               <span className="stat-number">50+</span>
@@ -124,24 +124,51 @@ const Hero = () => {
         >
           <div className="image-container">
             <img
-              src={Heroimg}
+              src="src\assets\pexels-vika-glitter-392079-23232336.jpg"
               alt="Cosmic Explorer"
               className="hero-main-image"
+              animate={{
+                filter: ["brightness(1)", "brightness(1.1)", "brightness(1)"],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatType: "reverse",
+              }}
             />
             <motion.div
               className="image-glow"
               animate={{
-                opacity: [0.4, 0.6, 0.4],
-                scale: [1, 1.05, 1],
+                opacity: [0.4, 0.7, 0.4],
+                scale: [1, 1.1, 1],
+                rotate: [0, 5, 0],
               }}
               transition={{
-                duration: 4,
+                duration: 8,
                 repeat: Number.POSITIVE_INFINITY,
                 repeatType: "reverse",
               }}
             ></motion.div>
+
+            {/* Add particle effect overlay */}
+            <motion.div
+              className="particle-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              transition={{ duration: 1, delay: 1 }}
+            ></motion.div>
           </div>
-          <div className="hero-image-overlay"></div>
+          <motion.div
+            className="hero-image-overlay"
+            animate={{
+              background: [
+                "linear-gradient(135deg, rgba(45, 27, 78, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%)",
+                "linear-gradient(135deg, rgba(61, 35, 20, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%)",
+                "linear-gradient(135deg, rgba(45, 27, 78, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%)",
+              ],
+            }}
+            transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+          ></motion.div>
 
           <motion.div
             className="floating-element element-1"
@@ -149,6 +176,7 @@ const Hero = () => {
               y: [0, -15, 0],
               rotate: [0, 5, 0],
               opacity: [0.7, 1, 0.7],
+              scale: [1, 1.05, 1],
             }}
             transition={{
               duration: 6,
@@ -159,6 +187,28 @@ const Hero = () => {
             <div className="element-content">
               <span className="element-label">New</span>
               <span className="element-text">Cosmic Explorer Collection</span>
+            </div>
+          </motion.div>
+
+          {/* Add a second floating element */}
+          <motion.div
+            className="floating-element element-2"
+            animate={{
+              y: [0, 15, 0],
+              rotate: [0, -3, 0],
+              opacity: [0.7, 1, 0.7],
+              scale: [1, 1.03, 1],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+              delay: 1,
+            }}
+          >
+            <div className="element-content">
+              <span className="element-label">Limited</span>
+              <span className="element-text">Cosmic Edition</span>
             </div>
           </motion.div>
         </motion.div>
