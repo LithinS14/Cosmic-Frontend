@@ -11,6 +11,7 @@ const perfumes = [
     name: "Nebula Noir",
     price: 79.99,
     image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1000&auto=format&fit=crop",
+    hoverImage: "https://images.unsplash.com/photo-1647009822729-0076c73fe6f0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcmZ1bWUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
     description: "A mysterious blend of dark berries, vanilla, and cosmic musk",
   },
   {
@@ -18,6 +19,7 @@ const perfumes = [
     name: "Stellar Glow",
     price: 89.99,
     image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2053&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    hoverImage: "https://images.unsplash.com/photo-1723391962154-8a2b6299bc09?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description: "Radiant notes of jasmine, amber, and celestial woods",
   },
   {
@@ -25,6 +27,7 @@ const perfumes = [
     name: "Cosmic Aura",
     price: 99.99,
     image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=1000&auto=format&fit=crop",
+    hoverImage: "https://images.unsplash.com/photo-1724157073080-fcffb8d6c956?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlcmZ1bWUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D",
     description: "An ethereal fragrance with notes of lavender, sandalwood, and stardust",
   },
 ]
@@ -67,9 +70,11 @@ const Perfumes = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               <div className="perfume-image">
-                <img src={perfume.image || "/placeholder.svg"} alt={perfume.name} />
-                <div className="perfume-overlay"></div>
-              </div>
+  <img src={perfume.image} alt={perfume.name} className="img-front" />
+  <img src={perfume.hoverImage} alt={perfume.name + ' alternate'} className="img-back" />
+  <div className="perfume-overlay"></div>
+</div>
+
               <div className="perfume-info">
                 <h3>{perfume.name}</h3>
                 <p className="perfume-description">{perfume.description}</p>

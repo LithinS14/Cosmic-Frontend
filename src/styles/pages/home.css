@@ -33,12 +33,12 @@
     135deg,
     var(--color-deep-purple) 0%,
     var(--color-dark-purple) 70%,
-    var(--color-brown) 100%
+    var( --color-brown) 100%
   );
 }
 
 .home-page section:nth-child(even) {
-  background: linear-gradient(135deg, var(--color-brown) 0%, var(--color-dark-purple) 100%);
+  background: linear-gradient(135deg, var(--color-red) -70%,var(--color-black)70%, var(--color-black) 100%);
 }
 
 /* Add subtle parallax effect to sections */

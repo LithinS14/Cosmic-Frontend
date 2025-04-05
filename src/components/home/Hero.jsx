@@ -4,7 +4,8 @@ import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
-import "../../styles/components/hero.css"
+import "../../styles/components/hero.css";
+import Heroimg from "../../assets/pexels-vika-glitter-392079-23232336.jpg";
 
 const Hero = () => {
   useEffect(() => {
@@ -124,7 +125,7 @@ const Hero = () => {
         >
           <div className="image-container">
             <img
-              src="src\assets\pexels-vika-glitter-392079-23232336.jpg"
+              src={Heroimg}
               alt="Cosmic Explorer"
               className="hero-main-image"
               animate={{
